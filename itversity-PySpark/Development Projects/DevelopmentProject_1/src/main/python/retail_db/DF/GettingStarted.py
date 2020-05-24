@@ -25,19 +25,9 @@ ordersDF.describe().show()
 ordersDF.show()
 
 
-order_items = spark.read.csv("/Users/shreyas_rl/Desktop/git/itversity-data/retail_db/order_items").\
+order_items = spark.read.csv("/Users/shreyas_rl/Desktop/git/itversity-data/retail_db/order_items", inferSchema = True).\
               toDF('order_item_id','order_item_order_id','order_item_product_id','order_item_qty',
                    'order_item_subtotal','order_item_price')
 order_items.printSchema()
 order_items.describe().show()
 order_items.show(5)
-
-order_itemsDF = order_items.withColumn('order_item_id',order_items.order_item_id.cast(IntegerType())).\
-                            withColumn('order_item_order_id',order_items.order_item_order_id.cast(IntegerType())).\
-                            withColumn('order_item_product_id',order_items.order_item_product_id.cast(IntegerType())).\
-                            withColumn('order_item_qty',order_items.order_item_qty.cast(IntegerType())).\
-                            withColumn('order_item_subtotal',order_items.order_item_subtotal.cast(FloatType())).\
-                            withColumn('order_item_price',order_items.order_item_price.cast(FloatType()))
-
-order_itemsDF.printSchema()
-order_itemsDF.show(5)
